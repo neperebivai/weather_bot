@@ -3,8 +3,8 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
 
-BOT_TOKEN = '5600388616:AAENSb64BeK1At7CN1eY6Q0JXgQh1TCIOYk'
-WEATHER_TOKEN = '7265e6a53721975b8e92f8debff01224'
+BOT_TOKEN = 'bot_token'
+WEATHER_TOKEN = 'openweather_token'
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher(bot)
 
