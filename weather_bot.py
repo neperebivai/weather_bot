@@ -3,7 +3,8 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
 
-BOT_TOKEN = 'bot_token'
+BOT_TOKEN = '5600388616:AAENSb64BeK1At7CN1eY6Q0JXgQh1TCIOYk'
+WEATHER_TOKEN = '7265e6a53721975b8e92f8debff01224'
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher(bot)
 
@@ -36,12 +37,15 @@ async def send_weather(message: types.Message):
 
 def get_weather(city):
     try:
-        url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&lang=ru&appid=your_id&units=metric'
+        url = f'http://api.openweathermap.org/data/2.5/forecast?q={city}&lang=ru&appid={WEATHER_TOKEN}&units=metric'
         response = requests.get(url)
         data = response.json()
-        weather_description = data['weather'][0]['description']
-        temperature = data['main']['temp']
-        return f'Погода в городе {city}: {weather_description}, температура: {temperature}°C'
+        forecast = f'Прогноз для города {city}:\n'
+        for time_point in data['list']:
+            point = time_point['dt_txt'], '{0:+3.0f}'.format(time_point['main']['temp']), time_point['weather'][0]['description']
+            forecast = forecast + str(point) + '\n'
+        return forecast
+
     except:
         return f'Название города не распознано.' \
                f'Прверьте название и попробуйте ещн раз.'
