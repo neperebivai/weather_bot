@@ -3,8 +3,8 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 
 
-BOT_TOKEN = '5600388616:AAENSb64BeK1At7CN1eY6Q0JXgQh1TCIOYk'
-WEATHER_TOKEN = '7265e6a53721975b8e92f8debff01224'
+BOT_TOKEN = 'bot_token'
+WEATHER_TOKEN = 'weather_token'
 bot = Bot(BOT_TOKEN)
 dp = Dispatcher(bot)
 
@@ -43,7 +43,9 @@ def get_weather(city):
         forecast = f'Прогноз для города {city}:\n'
         for time_point in data['list']:
             point = time_point['dt_txt'], '{0:+3.0f}'.format(time_point['main']['temp']), time_point['weather'][0]['description']
-            forecast = forecast + str(point) + '\n'
+            point = str(point).replace('\'', '')
+            point = point.strip('(' ')')
+            forecast = forecast + point + '\n'
         return forecast
 
     except:
